@@ -2,12 +2,16 @@ const invoice = require("./invoices.json");
 const plays = require("./plays.json");
 
 function statement(invoice) {
+  return renderPlainText(createStatementData(invoice, plays), invoice);
+}
+
+function createStatementData(invoice, plays) {
   const statementData = {};
   statementData.customer = invoice.customer;
   statementData.performances = invoice.performances.map(enrichPerformance);
   statementData.totalAmount = totalAmount(statementData);
   statementData.totalVolumeCredits = totalVolumeCredits(statementData);
-  return renderPlainText(statementData, invoice);
+  return statementData;
 
   function enrichPerformance(aPerformance) {
     const result = Object.assign({}, aPerformance);
