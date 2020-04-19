@@ -18,7 +18,7 @@ function renderPlainText(data) {
   let result = `청구 내역 (고객명 : ${data.customer})\n`;
 
   for (let perf of data.performances) {
-    result += `  ${playFor(perf).name}: ${usd(amountFor(perf))}, (${
+    result += `  ${perf.play.name}: ${usd(amountFor(perf))}, (${
       perf.audience
     } 석)\n`;
   }
@@ -34,7 +34,7 @@ function playFor(aPerformance) {
 
 function amountFor(aPerformance) {
   let result = 0;
-  switch (playFor(aPerformance).type) {
+  switch (aPerformance.play.type) {
     case 'tragedy': // 비극
       result = 40000;
       if (aPerformance.audience < 30) {
@@ -48,7 +48,7 @@ function amountFor(aPerformance) {
       }
       break;
     default:
-      throw new Error(`알 수 없는 장르 : ${playFor(perf).type}`);
+      throw new Error(`알 수 없는 장르 : ${aPerformance.play.type}`);
   }
   return result;
 }
