@@ -60,11 +60,7 @@ function statement(invoice) {
   }
 
   function totalAmount(data) {
-    let result = 0;
-    for (let perf of data.performances) {
-      result = perf.amount;
-    }
-    return result;
+    return data.performances.reduce((total, p) => total + p.amount, 0);
   }
 }
 
@@ -97,7 +93,7 @@ console.log(
   Hamlet: $400.00, (55 석)
   As You Like It: $300.00, (35 석)
   Othello: $400.00, (40 석)
-총액: $400.00
+총액: $1,100.00
 적립 포인트: 47점`
   )
 );
