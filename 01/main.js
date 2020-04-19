@@ -37,8 +37,6 @@ function statement(invoice) {
   }).format;
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(perf, playFor(perf));
-
     // 포인트를 적립한다.
     volumeCredits += Math.max(perf.audience - 30, 0);
 
@@ -46,9 +44,10 @@ function statement(invoice) {
     if ('comedy' === playFor(perf).type) {
       volumeCredits += Math.floor(perf.audience / 5);
     }
-    result += `  ${playFor(perf).name}: ${format(thisAmount / 100)}, (${
+    result += `  ${playFor(perf).name}: ${format(amountFor(perf) / 100)}, (${
       perf.audience
     } 석)\n`;
+    totoalAmount = amountFor(perf);
   }
 
   result += `총액: ${format(totoalAmount / 100)}\n`;
@@ -62,7 +61,7 @@ console.log(
   Hamlet: $400.00, (55 석)
   As You Like It: $300.00, (35 석)
   Othello: $400.00, (40 석)
-총액: $0.00
+총액: $400.00
 적립 포인트: 47점`
   )
 );
